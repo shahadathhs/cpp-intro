@@ -1,0 +1,36 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Install build tools
+      run: sudo apt update && sudo apt install -y build-essential
+
+    - name: Compile all C++ files
+      run: |
+        for f in *.cpp; do
+          echo "Compiling $f ..."
+          g++ -std=c++17 -O2 "$f" -o "${f%.cpp}.out"
+        done
+
+    - name: Run all compiled programs
+      run: |
+        for out in *.out; do
+          echo "Running $out ..."
+          if [ -f "input.txt" ]; then
+            timeout 5 ./"$out" < input.txt > output.txt
+          else
+            timeout 5 ./"$out"
+          fi
+        done
