@@ -25,3 +25,6 @@ bool compare(int a, int b) {
     return a > b; // Descending
 }
 ```
+
+## Code Examples
+- [Sorting Basics](sorting_basics.cpp) - `std::sort`, custom comparators, and median logic.

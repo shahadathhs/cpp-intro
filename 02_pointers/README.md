@@ -26,3 +26,6 @@ Pointers are variables that store memory addresses. They are powerful features o
 | :--- | :--- | :--- |
 | `new` | Allocates memory on the heap. | O(1) typically |
 | `delete` | Deallocates memory. | O(1) typically |
+
+## Code Examples
+- [Pointer Basics](pointer_basics.cpp) - Memory addresses, dereferencing, and pass-by-pointer.

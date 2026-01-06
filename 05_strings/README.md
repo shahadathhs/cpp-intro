@@ -29,3 +29,6 @@
 | Size | Dynamic. | Fixed (unless manual realloc). |
 | Header | `<string>` | `<cstring>` |
 | Termination | Handled internally. | Null-terminated `\0`. |
+
+## Code Examples
+- [String Basics](string_basics.cpp) - Operations, modifiers, and algorithms.

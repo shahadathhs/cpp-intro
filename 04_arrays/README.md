@@ -25,3 +25,6 @@ Arrays are fixed-size sequential collections of elements of the same type.
 | Syntax | Description |
 | :--- | :--- |
 | `int arr[2][3]` | 2D Array (2 rows, 3 columns) |
+
+## Code Examples
+- [Array Basics](array_basics.cpp) - Declaration, traversal, and reversal.

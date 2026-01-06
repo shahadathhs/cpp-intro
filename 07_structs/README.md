@@ -19,3 +19,6 @@ Members are stored sequentially in memory (padding may occur).
 | :--- | :--- | :--- |
 | `x` (int) | 4 bytes | 0 |
 | `y` (int) | 4 bytes | 4 |
+
+## Code Examples
+- [Struct Basics](struct_basics.cpp) - Definition, constructors, and sorting structs.

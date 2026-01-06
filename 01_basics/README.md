@@ -40,3 +40,6 @@ C++ is a high-performance, general-purpose programming language.
 | `for` | `for (init; cond; inc) { ... }` | O(N) where N is iterations |
 | `while` | `while (cond) { ... }` | O(N) |
 | `do-while` | `do { ... } while(cond);` | O(N), executes at least once |
+
+## Code Examples
+- [Basics Reference](basics_reference.cpp) - I/O, Conditionals, and Loops.

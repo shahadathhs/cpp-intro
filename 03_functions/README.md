@@ -25,3 +25,6 @@ Functions are blocks of reusable code.
 | :--- | :--- |
 | Local | Variable declared inside a function. Only accessible there. |
 | Global | Variable declared outside all functions. Accessible everywhere. |
+
+## Code Examples
+- [Function Basics](function_basics.cpp) - Declaration, parameters, and return types.

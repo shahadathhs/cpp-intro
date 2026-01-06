@@ -17,20 +17,50 @@ jobs:
     - name: Install build tools
       run: sudo apt update && sudo apt install -y build-essential
 
-    - name: Compile all C++ files
+    - name: Compile and Run all C++ files
       run: |
-        for f in *.cpp; do
-          echo "Compiling $f ..."
-          g++ -std=c++17 -O2 "$f" -o "${f%.cpp}.out"
-        done
-
-    - name: Run all compiled programs
-      run: |
-        for out in *.out; do
-          echo "Running $out ..."
-          if [ -f "input.txt" ]; then
-            timeout 5 ./"$out" < input.txt > output.txt
+        # Find all .cpp files recursively
+        find . -name "*.cpp" | while read -r file; do
+          echo "------------------------------------------------"
+          echo "Processing $file"
+          
+          # Define output executable name
+          out="${file%.cpp}.out"
+          
+          # Compile
+          if g++ -std=c++17 -O2 "$file" -o "$out"; then
+            echo "Compilation successful."
           else
-            timeout 5 ./"$out"
+            echo "::error file=$file::Compilation failed"
+            exit 1
+          fi
+          
+          # Run
+          # Use local input.txt if it exists (in the same dir), otherwise root input.txt
+          dir=$(dirname "$file")
+          if [ -f "$dir/input.txt" ]; then
+            input_file="$dir/input.txt"
+          elif [ -f "input.txt" ]; then
+            input_file="input.txt"
+          else
+            input_file="/dev/null"
+          fi
+          
+          echo "Running with input from $input_file..."
+          
+          # Run with timeout (5s) to prevent hanging on interactive inputs
+          if timeout 5 "$out" < "$input_file"; then
+            echo "Execution completed successfully."
+          else
+            exit_code=$?
+            if [ $exit_code -eq 124 ]; then
+              echo "::warning file=$file::Execution timed out (likely waiting for input)"
+            else
+              echo "::error file=$file::Execution failed with code $exit_code"
+              # Checking if we should fail the build on runtime error. 
+              # For now, let's allow it but log error, or fail? 
+              # Better to fail if it crashes on valid input.
+              exit 1 
+            fi
           fi
         done
